@@ -39,6 +39,7 @@
 
         <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
         <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+{{--        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>--}}
 
         @stack('js')
 
