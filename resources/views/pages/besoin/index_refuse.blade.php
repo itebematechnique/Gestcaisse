@@ -46,6 +46,14 @@
 
     {{-- TABLE --}}
     <div class="card">
+        {{--    TOOLTIP--}}
+        <div class="card card-frame mx-2 my--2 text-sm border-primary bg-primary-lighter">
+            <div class="card-body text-primary">
+                <i class="ni ni-air-baloon"></i> Vous avez ci-dessous la liste des besoins rejetés, il n'y a aucune action à effectuer à ce niveau
+                <br>
+                <span>Vous êtes sur la page <strong> {{ request()->get('page', 1) }} </strong></span>
+            </div>
+        </div>
         <!-- Card header -->
         <div class="card-header border-0">
             <h3 class="mb-0">Liste des besoins</h3>

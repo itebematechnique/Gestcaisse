@@ -2996,16 +2996,16 @@ fieldset:disabled a.btn
 .btn-primary:disabled
 {
     color: #fff;
-    border-color: #5e72e4;
-    background-color: #5e72e4;
+    border-color: var(--primary);
+    background-color: var(--primary);
 }
 .btn-primary:not(:disabled):not(.disabled):active,
 .btn-primary:not(:disabled):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle
 {
     color: #fff;
-    border-color: #5e72e4;
-    background-color: #324cdd;
+    border-color: var(--primary);
+    background-color: var(--primary);
 }
 .btn-primary:not(:disabled):not(.disabled):active:focus,
 .btn-primary:not(:disabled):not(.disabled).active:focus,
@@ -4267,7 +4267,7 @@ input[type='button'].btn-block
     text-decoration: none;
 
     color: #fff;
-    background-color: #5e72e4;
+    background-color: var(--primary);
 }
 .dropdown-item.disabled,
 .dropdown-item:disabled
@@ -4679,7 +4679,7 @@ input[type='button'].btn-block
 .custom-control-input:checked ~ .custom-control-label::before
 {
     color: #fff;
-    background-color: #5e72e4;
+    background-color: var(--primary);
     box-shadow: none;
 }
 .custom-control-input:focus ~ .custom-control-label::before
@@ -4689,7 +4689,7 @@ input[type='button'].btn-block
 .custom-control-input:active ~ .custom-control-label::before
 {
     color: #fff;
-    background-color: #5e72e4;
+    background-color: var(--primary);
     box-shadow: none;
 }
 .custom-control-input:disabled ~ .custom-control-label
@@ -4753,7 +4753,7 @@ input[type='button'].btn-block
 
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before
 {
-    background-color: #5e72e4;
+    background-color: var(--primary);
 }
 
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after
@@ -4763,7 +4763,7 @@ input[type='button'].btn-block
 
 .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before
 {
-    background-color: #5e72e4;
+    background-color: var(--primary);
     box-shadow: none;
 }
 
@@ -4774,12 +4774,12 @@ input[type='button'].btn-block
 
 .custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before
 {
-    background-color: rgba(94, 114, 228, .5);
+    background-color: var(--primary);
 }
 
 .custom-checkbox .custom-control-input:disabled:indeterminate ~ .custom-control-label::before
 {
-    background-color: rgba(94, 114, 228, .5);
+    background-color: var(--primary);
 }
 
 .custom-radio .custom-control-label::before
@@ -4789,7 +4789,7 @@ input[type='button'].btn-block
 
 .custom-radio .custom-control-input:checked ~ .custom-control-label::before
 {
-    background-color: #5e72e4;
+    background-color: var(--primary);
 }
 
 .custom-radio .custom-control-input:checked ~ .custom-control-label::after
@@ -17733,7 +17733,7 @@ a.btn-icon-only
 
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before
 {
-    border-color: #5e72e4;
+    border-color: var(--primary);
 }
 
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after
@@ -17760,7 +17760,7 @@ a.btn-icon-only
 
 .custom-radio .custom-control-input:checked ~ .custom-control-label::before
 {
-    border-color: #5e72e4;
+    border-color: var(--primary);
 }
 
 .custom-radio .custom-control-input:checked ~ .custom-control-label::after

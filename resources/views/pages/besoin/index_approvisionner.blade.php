@@ -20,7 +20,7 @@
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
 {{--                                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>--}}
-                                <li class="breadcrumb-item"><a href="#">Approvisionner la caisse</a></li>
+                                <li class="breadcrumb-item"><a class="text-primary" href="#">Approvisionner la caisse</a></li>
                             </ol>
                         </nav>
                     </div>
@@ -46,6 +46,14 @@
 
     {{-- TABLE --}}
     <div class="card">
+        {{--    TOOLTIP--}}
+        <div class="card card-frame mx-2 my--2 text-sm border-primary bg-primary-lighter">
+            <div class="card-body text-primary">
+                <i class="ni ni-air-baloon"></i> Rendez effectif le mouvement d'argent via le formulaire ci-dessous
+                <br>
+                <span>Vous pouvez ajouter une ramarque ou faire une descripton afin de pouvoir vous retrouver plus tard</span>
+            </div>
+        </div>
         <!-- Card header -->
         <div class="card-header border-0">
             <h3 class="mb-0">Approvisionner la caisse</h3>

@@ -106,6 +106,7 @@ class BesoinController extends Controller
         $besoin->status = 'en attente';
         $besoin->payement = 0;
         $besoin->date = date('Y-m-d');
+        $besoin->mois = $request->input('mois');
         $besoin->auteur = auth()->user()->username;
         $besoin->save();
 

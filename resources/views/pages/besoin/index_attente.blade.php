@@ -137,7 +137,7 @@
                             @endif
                         </td>
                         <td class="budget">
-                            {{ $besoin->status }}
+                            {{ ucwords($besoin->status) }}
                         </td>
                         <td class="budget">
                             {{ ucwords(\Carbon\Carbon::parse($besoin->date)->locale('fr')->translatedFormat('l d F Y')) }}
@@ -151,7 +151,7 @@
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                     {{-- <a class="dropdown-item" href={{ route('besoins.edit', $besoin) }}>Approvisionner la caisse</a> --}}
 
-                                    @if ($besoin->status == 'En attente' && auth()->user()->role != 'directeur' && auth()->user()->role != 'responsable administrative')
+                                    @if ($besoin->status == 'en attente' && auth()->user()->role != 'directeur' && auth()->user()->role != 'responsable administrative')
                                         <a class="dropdown-item" href={{ route('besoins.edit', $besoin) }}>Mettre à jour</a>
                                     @endif
 

@@ -20,12 +20,12 @@
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
 {{--                                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>--}}
-                                <li class="breadcrumb-item"><a href="#">Mettre à jour un besoin</a></li>
+                                <li class="breadcrumb-item"><a class="text-primary" href="#">Mettre à jour un besoin</a></li>
                             </ol>
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <a href="{{ route('besoins.index.attente') }}" class="btn btn-sm btn-neutral">Liste</a>
+                        <a href="{{ route('besoins.index.attente') }}" class="btn btn-sm btn-primary">Liste</a>
                         {{-- <a href="#" class="btn btn-sm btn-neutral">Filters</a> --}}
                     </div>
                 </div>
@@ -41,6 +41,12 @@
 
     {{-- TABLE --}}
     <div class="card">
+        {{--    TOOLTIP--}}
+        <div class="card card-frame mx-2 my--2 text-sm border-primary bg-primary-lighter">
+            <div class="card-body text-primary">
+                <i class="ni ni-air-baloon"></i> Mettez à jour votre besoin sur cette interface... du moment où il n'a pas encore été validé ou rejeté
+            </div>
+        </div>
         <!-- Card header -->
         <div class="card-header border-0">
             <h3 class="mb-0">Mettre à jour le besoin</h3>
@@ -71,8 +77,8 @@
                             </span>
                         @endif
                     </div>
-                    
-                    
+
+
                     <div class="form-group{{ $errors->has('mois') ? ' has-danger' : '' }} mb-3">
                         <div class="input-group input-group-alternative">
                             <div class="input-group-prepend">
@@ -81,12 +87,12 @@
                             <select class="form-control{{ $errors->has('mois') ? ' is-invalid' : '' }}" name="mois" id="mois-select" autofocus>
                                 @php
                                     // Array of months in French
-                                    $months = [ '',
+                                    $months = [ 'Veuillez chosir le mois',
                                         'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
                                         'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
                                     ];
                                 @endphp
-                            
+
                                 @foreach ($months as $month)
                                     <option value="{{ $month }}" {{ $month == $besoin->mois ? 'selected' : '' }}>
                                         {{ $month }}
@@ -100,15 +106,15 @@
                             </span>
                         @endif
                     </div>
-                    
-                    
+
+
                     <div class="form-group{{ $errors->has('montant') ? ' has-danger' : '' }} mb-3">
                         <div class="input-group input-group-alternative">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
                             </div>
                             <input class="form-control{{ $errors->has('montant') ? ' is-invalid' : '' }}"
-                                placeholder="{{ __('montant') }}" type="number" name="montant" value="{{ $besoin->montant }}"
+                                placeholder="{{ __('Montant') }}" type="number" name="montant" value="{{ $besoin->montant }}"
                                 required autofocus>
                         </div>
                         @if ($errors->has('montant'))
