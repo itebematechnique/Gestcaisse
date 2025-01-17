@@ -20,7 +20,7 @@
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
 {{--                                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>--}}
-                                <li class="breadcrumb-item"><a href="#">Liste des dépenses en attente</a></li>
+                                <li class="breadcrumb-item"><a href="#" class="text-primary">Liste des dépenses en attente</a></li>
                             </ol>
                         </nav>
                     </div>
@@ -48,6 +48,17 @@
 
     {{-- TABLE --}}
     <div class="card">
+        {{--    TOOLTIP--}}
+        <div class="card card-frame mx-2 my--2 text-sm border-primary bg-primary-lighter">
+            <div class="card-body text-primary">
+                <i class="ni ni-air-baloon"></i> Vous avez à ce niveau la liste des dépenses en attente
+                <br>
+                <span>Vous pouvez soit les approuver ou les mettre à jour</span>
+                <br>
+                <span>Vous êtes sur la page <strong> {{ request()->get('page', 1) }} </strong></span>
+            </div>
+        </div>
+
         <!-- Card header -->
         <div class="card-header border-0">
             <h3 class="mb-0">Liste des dépenses en attente</h3>
@@ -81,7 +92,7 @@
                             {{ $depense->motif}}
                         </td>
                         <td class="budget">
-                            {{ number_format($depense->mt)}} FCFA
+                            {{ number_format($depense->mt) }} FCFA
                         </td>
                         <td class="text-right">
                             <div class="dropdown">
@@ -92,7 +103,7 @@
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
 
                                         @if (array_search("ED", $actions) != false || $actions["0"] == "ED")
-                                            <a class="dropdown-item" href={{ route('depenses.edit', $depense) }}>Modifier</a>
+                                            <a class="dropdown-item" href={{ route('depenses.edit', $depense) }}>Mettre à jour</a>
                                         @endif
 
                                         @if ((array_search("APPROUVE", $actions) != false || $actions["0"] == "APPROUVE")
@@ -104,7 +115,8 @@
                                         @if (array_search("SD", $actions) != false || $actions["0"] == "SD")
                                             <form action={{ route('depenses.destroy', $depense) }} method="post" id="delete-depense">
                                                 @method('DELETE')
-                                                <button class="dropdown-item" type="submit">Supprimer</button>
+                                                <button class="dropdown-item text-danger" type="submit"
+                                                        onclick="return confirm('Êtes-vous sûr de vouloir retirer la dépense de  <{{ number_format($depense->mt) }}> XOF  pour <{{ $depense->motif}}> ?')">Retirer</button>
                                                 @csrf
                                             </form>
                                         @endif
@@ -130,9 +142,7 @@
                     </li> --}}
                     @foreach ($links as $link)
                         <li class="page-item">
-
-
-                            <a class="page-link" href="{{ $link}}">{{ $loop->index+1 }}</a>
+                            <a class="page-link {{ request()->get('page', 1) == $loop->index+1 ? 'bg-primary text-white' : 'bg-white text-primary' }}" href="{{ $link }}">{{ $loop->index+1 }}</a>
                         </li>
                     @endforeach
                     {{-- <li class="page-item">

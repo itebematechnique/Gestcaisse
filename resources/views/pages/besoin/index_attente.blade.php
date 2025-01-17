@@ -20,13 +20,13 @@
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
 {{--                                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>--}}
-                                <li class="breadcrumb-item"><a href="#">Liste des besoins en attente</a></li>
+                                <li class="breadcrumb-item"><a class="text-primary" href="#">Liste des besoins en attente</a></li>
                             </ol>
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
                         @if (array_search("AB", $actions) != false || array_search("AB", $actions) == 0)
-                            <a href="{{ route('besoins.create') }}" class="btn btn-sm btn-neutral">Nouveau</a>
+                            <a href="{{ route('besoins.create') }}" class="btn btn-sm btn-primary">Nouveau</a>
                         @endif
                         {{-- @if (auth()->user()->role == 'directeur')
                             <a href="{{ route('besoins.create') }}" class="btn btn-sm btn-neutral">Traiter les besoins</a>
@@ -52,6 +52,20 @@
 
     {{-- TABLE --}}
     <div class="card">
+        {{--    TOOLTIP--}}
+        <div class="card card-frame mx-2 my--2 text-sm border-primary bg-primary-lighter">
+            <div class="card-body text-primary">
+                <i class="ni ni-air-baloon"></i> Les besoins en attente de validation s'affichent ci-dessous et vous pouvez les mettre à jour à tout moment
+                <br>
+                <span>Notez que vous ne pouvez pas les retirer</span>
+                <br>
+                @if(array_search("ARB", $actions) != false || $actions["0"] == "ARB")
+                    <span>Vous pouvez valider ou rejeter un besoin an cliquant sur les trois points verticaux</span>
+                    <br>
+                @endif
+                <span>Vous êtes sur la page <strong> {{ request()->get('page', 1) }} </strong></span>
+            </div>
+        </div>
         <!-- Card header -->
         <div class="card-header border-0">
             <h3 class="mb-0">Liste des besoins</h3>
@@ -94,8 +108,8 @@
                                                 <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
                                             </div>
                                             <input class="form-control{{ $errors->has('montant') ? ' is-invalid' : '' }}"
-                                                placeholder="{{ __('montant') }}" type="number" name="montant" value="" min="0"
-                                                oninput="this.value = this.value.replace(/[^0-9]/g, '')" 
+                                                placeholder="{{ __('Saisir le montant') }}" type="number" name="montant" value="" min="0"
+                                                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                                                 required autofocus>
                                         </div>
                                         @if ($errors->has('montant'))
@@ -137,13 +151,13 @@
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                     {{-- <a class="dropdown-item" href={{ route('besoins.edit', $besoin) }}>Approvisionner la caisse</a> --}}
 
-                                    @if ($besoin->status == 'en attente' && auth()->user()->role != 'directeur' && auth()->user()->role != 'responsable administrative')
-                                        <a class="dropdown-item" href={{ route('besoins.edit', $besoin) }}>Modifier</a>
+                                    @if ($besoin->status == 'En attente' && auth()->user()->role != 'directeur' && auth()->user()->role != 'responsable administrative')
+                                        <a class="dropdown-item" href={{ route('besoins.edit', $besoin) }}>Mettre à jour</a>
                                     @endif
 
                                     @if(array_search("ARB", $actions) != false || $actions["0"] == "ARB")
                                         <a class="dropdown-item" onclick="validation({{$loop->index}}, 'valider')">Valider le montant</a>
-                                        <a class="dropdown-item" onclick="validation({{$loop->index}}, 'rejeter')">Rejeter le besoin</a>
+                                        <a class="dropdown-item text-danger" onclick="validation({{$loop->index}}, 'rejeter')">Rejeter le besoin</a>
                                     @endif
 
                                     {{-- <form action={{ route('besoins.destroy', $besoin) }} method="post" id="delete-besoin">
@@ -172,9 +186,7 @@
                     </li> --}}
                     @foreach ($links as $link)
                         <li class="page-item">
-
-
-                            <a class="page-link" href="{{ $link}}">{{ $loop->index+1 }}</a>
+                            <a class="page-link {{ request()->get('page', 1) == $loop->index+1 ? 'bg-primary text-white' : 'bg-white text-primary' }}" href="{{ $link }}">{{ $loop->index+1 }}</a>
                         </li>
                     @endforeach
                     {{-- <li class="page-item">

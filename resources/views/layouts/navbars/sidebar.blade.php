@@ -5,7 +5,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Brand -->
-        <a class="navbar-brand pt-0 text-purple" href="{{ route('home') }}">
+        <a class="navbar-brand pt-0 text-primary" href="{{ route('home') }}">
             {{-- <img src="{{ asset('argon') }}/img/brand/blue.png" class="navbar-brand-img" alt="..."> --}}
             GESTCAISSE
         </a>

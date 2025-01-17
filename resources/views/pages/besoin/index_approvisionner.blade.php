@@ -25,7 +25,7 @@
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <a href="{{ route('besoins.index.accepte') }}" class="btn btn-sm btn-neutral">Liste</a>
+                        <a href="{{ route('besoins.index.accepte') }}" class="btn btn-sm btn-primary">Liste</a>
                         {{-- <a href="#" class="btn btn-sm btn-neutral">Filters</a> --}}
                     </div>
                 </div>

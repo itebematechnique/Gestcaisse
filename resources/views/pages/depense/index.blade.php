@@ -20,13 +20,13 @@
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
 {{--                                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>--}}
-                                <li class="breadcrumb-item"><a href="#">Liste des dépenses acceptées</a></li>
+                                <li class="breadcrumb-item"><a href="#" class="text-primary">Liste des dépenses acceptées</a></li>
                             </ol>
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
                         @if (array_search("AD", $actions) != false || $actions["0"] == "AD")
-                            <a href="{{ route('depenses.create') }}" class="btn btn-sm btn-neutral">Nouvelle</a>
+                            <a href="{{ route('depenses.create') }}" class="btn btn-sm btn-primary">Nouvelle</a>
                         @endif
 
                         {{-- <a href="#" class="btn btn-sm btn-neutral">Filters</a> --}}
@@ -44,6 +44,15 @@
 
     {{-- TABLE --}}
     <div class="card">
+        {{--    TOOLTIP--}}
+        <div class="card card-frame mx-2 my--2 text-sm border-primary bg-primary-lighter">
+            <div class="card-body text-primary">
+                <i class="ni ni-air-baloon"></i> Ici vous avez une liste de toutes les dépenses acceptées
+                <br>
+                <span>Vous êtes sur la page <strong> {{ request()->get('page', 1) }} </strong></span>
+            </div>
+        </div>
+
         <!-- Card header -->
         <div class="card-header border-0">
             <h3 class="mb-0">Liste des dépenses acceptées</h3>
@@ -116,9 +125,7 @@
                     </li> --}}
                     @foreach ($links as $link)
                         <li class="page-item">
-
-
-                            <a class="page-link" href="{{ $link}}">{{ $loop->index+1 }}</a>
+                            <a class="page-link {{ request()->get('page', 1) == $loop->index+1 ? 'bg-primary text-white' : 'bg-white text-primary' }}" href="{{ $link }}">{{ $loop->index+1 }}</a>
                         </li>
                     @endforeach
                     {{-- <li class="page-item">

@@ -20,13 +20,13 @@
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
 {{--                                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>--}}
-                                <li class="breadcrumb-item"><a href="#">Liste des besoins refusés</a></li>
+                                <li class="breadcrumb-item"><a class="text-primary" href="#">Liste des besoins refusés</a></li>
                             </ol>
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
                         @if (array_search("AB", $actions) != false || $actions["0"] == "AB")
-                            <a href="{{ route('besoins.create') }}" class="btn btn-sm btn-neutral">Nouveau</a>
+                            <a href="{{ route('besoins.create') }}" class="btn btn-sm btn-primary">Nouveau</a>
                         @endif
                         {{-- @if (auth()->user()->role == 'directeur')
                             <a href="{{ route('besoins.create') }}" class="btn btn-sm btn-neutral">Traiter les besoins</a>
@@ -90,7 +90,7 @@
                             @endif
                         </td>
                         <td class="budget">
-                            {{ $besoin->status }}
+                            {{ ucwords($besoin->status) }}
                         </td>
                         <td class="budget">
                             {{ ucwords(\Carbon\Carbon::parse($besoin->date)->locale('fr')->translatedFormat('l d F Y')) }}
@@ -130,9 +130,7 @@
                     </li> --}}
                     @foreach ($links as $link)
                         <li class="page-item">
-
-
-                            <a class="page-link" href="{{ $link}}">{{ $loop->index+1 }}</a>
+                            <a class="page-link {{ request()->get('page', 1) == $loop->index+1 ? 'bg-primary text-white' : 'bg-white text-primary' }}" href="{{ $link }}">{{ $loop->index+1 }}</a>
                         </li>
                     @endforeach
                     {{-- <li class="page-item">

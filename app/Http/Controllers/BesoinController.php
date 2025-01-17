@@ -144,7 +144,7 @@ class BesoinController extends Controller
     {
         if($request->validation_type == 'valider'){
             if($request->montant <= 0)
-                return Redirect::back()->withFail("Le montant demandé doit être supérieur à 0");
+                return Redirect::back()->withFail("Le montant accordé doit être supérieur à 0");
             if($request->montant > $besoin->montant)
                 return Redirect::back()->withFail("Le montant accordé ne doit pas dépasser le montant demandé");
 

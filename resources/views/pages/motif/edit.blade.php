@@ -20,12 +20,12 @@
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
 {{--                                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>--}}
-                                <li class="breadcrumb-item"><a href="#">Mettre à jour un motif</a></li>
+                                <li class="breadcrumb-item"><a href="#" class="text-primary">Mettre à jour un motif</a></li>
                             </ol>
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <a href="{{ route('motifs.index') }}" class="btn btn-sm btn-neutral">Liste</a>
+                        <a href="{{ route('motifs.index') }}" class="btn btn-sm btn-primary">Liste</a>
                         {{-- <a href="#" class="btn btn-sm btn-neutral">Filters</a> --}}
                     </div>
                 </div>
@@ -41,6 +41,13 @@
 
     {{-- TABLE --}}
     <div class="card">
+        {{--    TOOLTIP--}}
+        <div class="card card-frame mx-2 my--2 text-sm border-primary bg-primary-lighter">
+            <div class="card-body text-primary">
+                <i class="ni ni-air-baloon"></i> Mettez à jour votre motif en remplissant le champs ci-dessous
+            </div>
+        </div>
+
         <!-- Card header -->
         <div class="card-header border-0">
             <h3 class="mb-0">Mettre à jour le motif</h3>
@@ -55,10 +62,10 @@
                     <div class="form-group{{ $errors->has('motif') ? ' has-danger' : '' }} mb-3">
                         <div class="input-group input-group-alternative">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                                <span class="input-group-text"><i class="ni ni-align-left-2"></i></span>
                             </div>
                             <input class="form-control{{ $errors->has('motif') ? ' is-invalid' : '' }}"
-                                placeholder="{{ __('motif') }}" type="text" name="motif" value="{{ $motif->motif }}"
+                                placeholder="{{ __('Motif') }}" type="text" name="motif" value="{{ $motif->motif }}"
                                 value="hacker" required autofocus>
                         </div>
                         @if ($errors->has('motif'))
@@ -68,7 +75,7 @@
                         @endif
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary my-4">{{ __('Modifier') }}</button>
+                        <button type="submit" class="btn btn-primary my-4">{{ __('Mettre à jour') }}</button>
                     </div>
                 </form>
             </div>

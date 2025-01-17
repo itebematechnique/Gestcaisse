@@ -1,4 +1,4 @@
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8 align-items-center">
+<div class="header bg-primary pb-8 pt-5 pt-md-8 align-items-center">
     <div class="container-fluid">
         {{-- <div class="alert alert-danger" role="alert">
             <strong>This is a PRO feature!</strong>

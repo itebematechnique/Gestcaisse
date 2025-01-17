@@ -20,12 +20,12 @@
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
 {{--                                <li class="breadcrumb-item"><a href="{{ route('home')  }}"><i class="fas fa-home"></i></a></li>--}}
-                                <li class="breadcrumb-item"><a href="#">Mise à jour d'une source de financement</a></li>
+                                <li class="breadcrumb-item"><a href="#" class="text-primary">Mise à jour d'une source de financement</a></li>
                             </ol>
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <a href="{{ route('financings.index') }}" class="btn btn-sm btn-neutral">Liste</a>
+                        <a href="{{ route('financings.index') }}" class="btn btn-sm btn-primary">Liste</a>
                         {{-- <a href="#" class="btn btn-sm btn-neutral">Filters</a> --}}
                     </div>
                 </div>
@@ -41,6 +41,15 @@
 
     {{-- TABLE --}}
     <div class="card">
+        {{--    TOOLTIP--}}
+        <div class="card card-frame mx-2 my--2 text-sm border-primary bg-primary-lighter">
+            <div class="card-body text-primary">
+                <i class="ni ni-air-baloon"></i> Effectuez la mise à jour de cette source
+                <br>
+                <span>Vous êtes sur la page <strong> {{ request()->get('page', 1) }} </strong></span>
+            </div>
+        </div>
+
         <!-- Card header -->
         <div class="card-header border-0">
             <h3 class="mb-0">Mettre à jour une source de financement</h3>

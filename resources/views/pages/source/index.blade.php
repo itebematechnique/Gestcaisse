@@ -20,12 +20,12 @@
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-dark">
                                 {{--                                <li class="breadcrumb-item"><a href="{{ route('home')  }}"><i class="fas fa-home"></i></a></li>--}}
-                                <li class="breadcrumb-item"><a href="#">Liste des sources de financement</a></li>
+                                <li class="breadcrumb-item"><a href="#" class="text-primary">Liste des sources de financement</a></li>
                             </ol>
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <a href="{{ route('financings.create') }}" class="btn btn-sm btn-neutral">Nouvelle</a>
+                        <a href="{{ route('financings.create') }}" class="btn btn-sm btn-primary">Nouvelle</a>
                         {{-- <a href="#" class="btn btn-sm btn-neutral">Filters</a> --}}
                     </div>
                 </div>
@@ -41,6 +41,15 @@
 
     {{-- TABLE --}}
     <div class="card">
+        {{--    TOOLTIP--}}
+        <div class="card card-frame mx-2 my--2 text-sm border-primary bg-primary-lighter">
+            <div class="card-body text-primary">
+                <i class="ni ni-air-baloon"></i> Qui fourni les fond ? Vous en avez la liste ci-dessous !
+                <br>
+                <span>Vous êtes sur la page <strong> {{ request()->get('page', 1) }} </strong></span>
+            </div>
+        </div>
+
         <!-- Card header -->
         <div class="card-header border-0">
             <h3 class="mb-0">Liste des sources de financement</h3>
@@ -58,7 +67,7 @@
                 @foreach ($sources as $source)
                     <tr>
                         <td class="budget">
-                            {{ $source->source}}
+                            {{ $source->source }}
                         </td>
                         <td class="text-right">
                             <div class="dropdown">
@@ -67,12 +76,12 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                    <a class="dropdown-item" href={{ route('financings.edit', $source) }}>Modifier</a>
+                                    <a class="dropdown-item" href={{ route('financings.edit', $source) }}>Mettre à jour</a>
 
                                     <form action={{ route('financings.destroy', $source) }} method="post"
                                           id="delete-source">
                                         @method('DELETE')
-                                        <button class="dropdown-item" type="submit">Supprimer</button>
+                                        <button class="dropdown-item text-danger" type="submit" onclick="return confirm('Êtes-vous sûr de vouloir retirer la source <{{ $source->source }}> ?')">Retirer</button>
                                         @csrf
                                     </form>
                                 </div>
@@ -96,9 +105,7 @@
                     </li> --}}
                     @foreach ($links as $link)
                         <li class="page-item">
-
-
-                            <a class="page-link" href="{{ $link}}">{{ $loop->index+1 }}</a>
+                            <a class="page-link {{ request()->get('page', 1) == $loop->index+1 ? 'bg-primary text-white' : 'bg-white text-primary' }}" href="{{ $link }}">{{ $loop->index+1 }}</a>
                         </li>
                     @endforeach
                     {{-- <li class="page-item">

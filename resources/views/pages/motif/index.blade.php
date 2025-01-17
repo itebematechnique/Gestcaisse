@@ -10,6 +10,7 @@
             </div>
         </nav>
     </div>
+
     {{-- HEADER --}}
     <div class="header bg-primary pb-4 pt-6">
         <div class="container-fluid">
@@ -20,12 +21,12 @@
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
 {{--                                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>--}}
-                                <li class="breadcrumb-item"><a href="#">Liste des motifs</a></li>
+                                <li class="breadcrumb-item"><a href="#" class="text-primary">Liste des motifs</a></li>
                             </ol>
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <a href="{{ route('motifs.create') }}" class="btn btn-sm btn-neutral">Nouveau</a>
+                        <a href="{{ route('motifs.create') }}" class="btn btn-sm btn-primary">Nouveau</a>
                         {{-- <a href="#" class="btn btn-sm btn-neutral">Filters</a> --}}
                     </div>
                 </div>
@@ -34,13 +35,22 @@
     </div>
 
     @if(Session::has('fail'))
-    <div class="alert alert-danger">
-        {{Session::get('fail')}}
-    </div>
-@endif
+        <div class="alert alert-danger">
+            {{Session::get('fail')}}
+        </div>
+    @endif
 
     {{-- TABLE --}}
     <div class="card">
+        {{--    TOOLTIP--}}
+        <div class="card card-frame mx-2 my--2 text-sm border-primary bg-primary-lighter">
+            <div class="card-body text-primary">
+                <i class="ni ni-air-baloon"></i> Vous pouvez consulter la liste des motifs et effectuer des mises à jour ou des suppressions
+                <br>
+                <span>Vous êtes sur la page <strong> {{ request()->get('page', 1) }} </strong></span>
+            </div>
+        </div>
+
         <!-- Card header -->
         <div class="card-header border-0">
             <h3 class="mb-0">Liste des motifs</h3>
@@ -50,7 +60,7 @@
             <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                     <tr>
-                        <th scope="col" class="sort" data-sort="name">Source</th>
+                        <th scope="col" class="sort" data-sort="name">Motif</th>
                         <th scope="col" class="text-right">Actions</th>
                     </tr>
                 </thead>
@@ -67,13 +77,16 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                    <a class="dropdown-item" href={{ route('motifs.edit', $motif) }}>Modifier</a>
+                                    <a class="dropdown-item" href={{ route('motifs.edit', $motif) }}>Metre à jour</a>
 
-                                    <form action={{ route('motifs.destroy', $motif) }} method="post" id="delete-motif">
+                                    <form action="{{ route('motifs.destroy', $motif) }}" method="post" id="delete-motif-{{ $motif->id }}">
                                         @method('DELETE')
-                                        <button class="dropdown-item" type="submit">Supprimer</button>
                                         @csrf
+                                        <button class="dropdown-item text-danger" type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer le motif <{{ $motif->motif }}> ?')">
+                                            Retirer
+                                        </button>
                                     </form>
+
                                 </div>
                             </div>
                         </td>
@@ -95,9 +108,7 @@
                     </li> --}}
                     @foreach ($links as $link)
                         <li class="page-item">
-
-
-                            <a class="page-link" href="{{ $link}}">{{ $loop->index+1 }}</a>
+                            <a class="page-link {{ request()->get('page', 1) == $loop->index+1 ? 'bg-primary text-white' : 'bg-white text-primary' }}" href="{{ $link }}">{{ $loop->index+1 }}</a>
                         </li>
                     @endforeach
                     {{-- <li class="page-item">

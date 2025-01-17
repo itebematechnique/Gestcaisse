@@ -20,13 +20,13 @@
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
 {{--                                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>--}}
-                                <li class="breadcrumb-item"><a href="#">Liste des entrées</a></li>
+                                <li class="breadcrumb-item"><a href="#" class="text-primary">Liste des entrées</a></li>
                             </ol>
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
                         @if (array_search("AE", $actions) != false || $actions["0"] == "AE")
-                            <a href="{{ route('entrees.create') }}" class="btn btn-sm btn-neutral">Nouvelle</a>
+                            <a href="{{ route('entrees.create') }}" class="btn btn-sm btn-primary">Nouvelle</a>
                         @endif
                         {{-- <a href="#" class="btn btn-sm btn-neutral">Filters</a> --}}
                     </div>
@@ -43,6 +43,17 @@
 
     {{-- TABLE --}}
     <div class="card">
+        {{--    TOOLTIP--}}
+        <div class="card card-frame mx-2 my--2 text-sm border-primary bg-primary-lighter">
+            <div class="card-body text-primary">
+                <i class="ni ni-air-baloon"></i> La liste des entrées vous permet d'identifier la quantité d'argent injectée dans le système...
+                <br>
+                <span>Vous pouvez à tout moment modifier ou retirer l'entrée en question !</span>
+                <br>
+                <span>Vous êtes sur la page <strong> {{ request()->get('page', 1) }} </strong></span>
+            </div>
+        </div>
+
         <!-- Card header -->
         <div class="card-header border-0">
             <h3 class="mb-0">Liste des entrées</h3>
@@ -102,13 +113,14 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                     @if (array_search("EE", $actions) != false || $actions["0"] == "EE")
-                                        <a class="dropdown-item" href={{ route('entrees.edit', $entree) }}>Modifier</a>
+                                        <a class="dropdown-item" href={{ route('entrees.edit', $entree) }}>Mettre à jour</a>
                                     @endif
 
                                     @if (array_search("SE", $actions) != false || $actions["0"] == "SE")
                                         <form action={{ route('entrees.destroy', $entree) }} method="post" id="delete-entree">
                                             @method('DELETE')
-                                            <button class="dropdown-item" type="submit">Supprimer</button>
+                                            <button class="dropdown-item text-danger" type="submit"
+                                                    onclick="return confirm('Êtes-vous sûr de vouloir retirer l\'entrée de <{{ number_format($entree->mt_a)}}> XOF  pour <{{ $entree->motif}}> ?')">Retirer</button>
                                             @csrf
                                         </form>
                                     @endif
@@ -133,9 +145,7 @@
                     </li> --}}
                     @foreach ($links as $link)
                         <li class="page-item">
-
-
-                            <a class="page-link" href="{{ $link}}">{{ $loop->index+1 }}</a>
+                            <a class="page-link {{ request()->get('page', 1) == $loop->index+1 ? 'bg-primary text-white' : 'bg-white text-primary' }}" href="{{ $link }}">{{ $loop->index+1 }}</a>
                         </li>
                     @endforeach
                     {{-- <li class="page-item">
