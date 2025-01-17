@@ -46,6 +46,12 @@
 
     {{-- TABLE --}}
     <div class="card">
+        {{--    TOOLTIP--}}
+        <div class="card card-frame mx-2 my--2 text-sm border-primary bg-primary-lighter">
+            <div class="card-body text-primary">
+                <i class="ni ni-air-baloon"></i> Ajouteez vos dépenses en spécifiant le bénéficiaire, le montant et le motif
+            </div>
+        </div>
         <!-- Card header -->
         <div class="card-header border-0">
             <h3 class="mb-0">Ajouter une dépense</h3>
@@ -79,7 +85,7 @@
                                 <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
                             </div>
                             <input class="form-control{{ $errors->has('montant') ? ' is-invalid' : '' }}"
-                                placeholder="{{ __('montant') }}" type="number" name="montant" value="{{ old('montant') }}"
+                                placeholder="{{ __('Montant') }}" type="number" name="montant" value="{{ old('montant') }}"
                                  required autofocus>
                         </div>
                         @if ($errors->has('montant'))
@@ -94,7 +100,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="ni ni-bullet-list-67"></i></span>
                             </div>
-                            <textarea class="form-control{{ $errors->has('motif') ? ' is-invalid' : '' }}" placeholder="{{ __('motifs') }}"
+                            <textarea class="form-control{{ $errors->has('motif') ? ' is-invalid' : '' }}" placeholder="{{ __('Motifs') }}"
                                 name="motif" id="" cols="30" rows="4" autofocus></textarea>
                         </div>
                         @if ($errors->has('motif'))

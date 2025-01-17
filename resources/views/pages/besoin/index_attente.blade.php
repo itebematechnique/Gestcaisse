@@ -90,7 +90,7 @@
                         <td class="media-body">
                             {{ $besoin->designation }}
                             @if($besoin->mois != null && $besoin->mois != '')
-                                <br> Pour le mois de {{ $besoin->mois }}
+                                <br> Pour le mois : {{ $besoin->mois }}
                             @endif
                         </td>
                         <td class="budget">

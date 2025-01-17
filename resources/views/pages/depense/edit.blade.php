@@ -46,6 +46,12 @@
 
     {{-- TABLE --}}
     <div class="card">
+        {{--    TOOLTIP--}}
+        <div class="card card-frame mx-2 my--2 text-sm border-primary bg-primary-lighter">
+            <div class="card-body text-primary">
+                <i class="ni ni-air-baloon"></i> Mettez à jour vos dépenses via le formulaire ci-dessous
+            </div>
+        </div>
         <!-- Card header -->
         <div class="card-header border-0">
             <h3 class="mb-0">Mettre à jour une dépense</h3>

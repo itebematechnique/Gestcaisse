@@ -80,6 +80,9 @@
                     <tr>
                         <td class="media-body">
                             {{ $besoin->designation }}
+                            @if($besoin->mois != null && $besoin->mois != '')
+                                <br> Pour le mois : {{ $besoin->mois }}
+                            @endif
                         </td>
                         <td class="budget">
                             {{ number_format($besoin->montant) }} FCFA
@@ -113,8 +116,10 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                    @if (array_search("APCB", $actions) != false || array_search("APCB", $actions))
+                                    @if ((array_search("APCB", $actions) != false || array_search("APCB", $actions)) && $besoin->payement == 0)
                                         <a class="dropdown-item" href={{ route('besoins.index.approvisionner', $besoin) }}>Approvisionner la caisse</a>
+                                    @else
+                                        <a class="dropdown-item" href="#">Aucune action</a>
                                     @endif
 
 

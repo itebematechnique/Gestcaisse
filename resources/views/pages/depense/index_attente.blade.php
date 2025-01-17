@@ -53,7 +53,11 @@
             <div class="card-body text-primary">
                 <i class="ni ni-air-baloon"></i> Vous avez à ce niveau la liste des dépenses en attente
                 <br>
-                <span>Vous pouvez soit les approuver ou les mettre à jour</span>
+                <span>Vous pouvez soit les approuver ou les mettre à jour...Vous pouvez également les retirer</span>
+                <br>
+                <span>Notez qu'à la second approbation, le montant est automatiquement <strong>débité</strong>, veillez donc à ne cliquer qu'une fois sur le bouton approuver !</span>
+                <br>
+                <span>Vous ne pouvez pas mettre à jour une dépense qui a été approuvée au monis une fois !</span>
                 <br>
                 <span>Vous êtes sur la page <strong> {{ request()->get('page', 1) }} </strong></span>
             </div>
@@ -102,7 +106,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
 
-                                        @if (array_search("ED", $actions) != false || $actions["0"] == "ED")
+                                        @if ((array_search("ED", $actions) != false || $actions["0"] == "ED") && $depense->nbr_approuve != 1)
                                             <a class="dropdown-item" href={{ route('depenses.edit', $depense) }}>Mettre à jour</a>
                                         @endif
 

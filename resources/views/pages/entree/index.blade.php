@@ -46,9 +46,9 @@
         {{--    TOOLTIP--}}
         <div class="card card-frame mx-2 my--2 text-sm border-primary bg-primary-lighter">
             <div class="card-body text-primary">
-                <i class="ni ni-air-baloon"></i> La liste des entrées vous permet d'identifier la quantité d'argent injectée dans le système...
+                <i class="ni ni-air-baloon"></i> La liste des entrées vous permet d'identifier la quantité d'argent injectée dans le système... Cette action est irréversible !
                 <br>
-                <span>Vous pouvez à tout moment modifier ou retirer l'entrée en question !</span>
+                <span>Vous pouvez à tout moment modifier l'entrée en question !</span>
                 <br>
                 <span>Vous êtes sur la page <strong> {{ request()->get('page', 1) }} </strong></span>
             </div>
@@ -116,14 +116,14 @@
                                         <a class="dropdown-item" href={{ route('entrees.edit', $entree) }}>Mettre à jour</a>
                                     @endif
 
-                                    @if (array_search("SE", $actions) != false || $actions["0"] == "SE")
+                                    {{--@if (array_search("SE", $actions) != false || $actions["0"] == "SE")
                                         <form action={{ route('entrees.destroy', $entree) }} method="post" id="delete-entree">
                                             @method('DELETE')
                                             <button class="dropdown-item text-danger" type="submit"
                                                     onclick="return confirm('Êtes-vous sûr de vouloir retirer l\'entrée de <{{ number_format($entree->mt_a)}}> XOF  pour <{{ $entree->motif}}> ?')">Retirer</button>
                                             @csrf
                                         </form>
-                                    @endif
+                                    @endif--}}
                                 </div>
                             </div>
                         </td>
