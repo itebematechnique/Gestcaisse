@@ -51,7 +51,7 @@ Route::get('/passwords', function () {
     foreach ($plain_passwords as $key => $value) {
         array_push($encrypted_passwords, Hash::make($value));
     }
-    
+
     return "Go Away !";
     return $encrypted_passwords;
     // return "Go Away !";
@@ -73,6 +73,7 @@ Route::get('/', function () {
 // Auth::routes();
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
+Route::post('/home', 'App\Http\Controllers\HomeController@index_search')->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);

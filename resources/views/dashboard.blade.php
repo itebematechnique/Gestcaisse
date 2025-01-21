@@ -13,11 +13,65 @@
                      <div class="card-header bg-transparent">
                         <div class="row align-items-center">
                             <div class="col">
+
+                                @if (Session::has('success'))
+                                    <div class="alert alert-success">
+                                        {{ Session::get('success') }}
+                                    </div>
+                                @endif
+                                @if (Session::has('fail'))
+                                    <div class="alert alert-danger">
+                                        {{ Session::get('fail') }}
+                                    </div>
+                                @endif
+
                                 <h6 class="text-uppercase text-light ls-1 mb-1">Statistiques</h6>
-                                <h2 class="text-white mb-0">Evolution des entrées et sorties</h2>
+                                <h2 class="text-white mb-0">Mouvements financiers
+                                    <span id="movement-text">
+                                         de l'année
+                                    </span>
+                                    <span>
+                                        @isset($start_date)
+                                            du {{ \Carbon\Carbon::parse($start_date)->translatedFormat('d-m-Y') }} au {{ \Carbon\Carbon::parse($end_date)->translatedFormat('d-m-Y') }}
+                                        @endisset
+                                    </span>
+                                </h2>
                             </div>
                             <div class="col">
                                 <ul class="nav nav-pills justify-content-end">
+                                    <form action="{{ route('home') }}" method="post" class="mx-3">
+                                        @csrf
+                                        <ul class="nav nav-pills justify-content-end">
+                                            <li class="nav-item mr-2 mr-md-0">
+                                                <button type="submit" class="nav-link py-2 px-3 active">
+                                                    <span class="d-none d-md-block">Rechercher</span>
+                                                    <span class="d-md-none">R</span>
+                                                </button>
+                                            </li>
+                                            <li class="nav-item mr-2 mr-md-0">
+                                                {{-- Date de début --}}
+                                                <div class="mb-3">
+                                                    <div class="input-group input-group-alternative">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="ni ni-ui-04"></i></span>
+                                                        </div>
+                                                        <input class="form-control{{ $errors->has('date_debut') ? ' is-invalid' : '' }}" type="date" name="date_debut" id="" required>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="nav-item mr-2 mr-md-0">
+                                                {{-- Date de début --}}
+                                                <div class="mb-3">
+                                                    <div class="input-group input-group-alternative">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="ni ni-ui-04"></i></span>
+                                                        </div>
+                                                        <input class="form-control{{ $errors->has('date_fin') ? ' is-invalid' : '' }}" type="date" name="date_fin" id="" required>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </form>
                                     <li class="nav-item mr-2 mr-md-0">
                                         <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab" id="updateYear">
                                             <span class="d-none d-md-block">Année</span>
@@ -47,7 +101,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="chart-container" style="display: flex; gap: 20px;">
+                        <div class="chart-container" style="display: flex; gap: 20px;" id="first-charts">
                             <div class="chart" style="flex: 1;">
                                 <canvas id="myChart" class="chart-canvas"></canvas>
                             </div>
@@ -55,8 +109,12 @@
                                 <canvas id="myChart2" class="chart-canvas"></canvas>
                             </div>
                         </div>
-                        <div class="col">
-                            <h2 class="text-white mb-0">Evolution du solde</h2>
+                        <div class="col" id="second-chart-text">
+                            <h2 class="text-white mb-0">Evolution du solde
+                                <span id="balance-text">
+                                     de l'année
+                                </span>
+                            </h2>
                         </div>
                         <div class="chart-container" style="display: flex; gap: 20px;">
                             <div class="chart" style="flex: 1;">
@@ -325,6 +383,13 @@
         var ctx2 = document.getElementById('myChart2').getContext('2d');
         var ctx3 = document.getElementById('myChart3').getContext('2d');
 
+        // Comment to show other charts
+        document.getElementById('myChart').remove();
+        document.getElementById('myChart2').remove();
+        document.getElementById('first-charts').style.display = 'none';
+        document.getElementById('second-chart-text').style.display = 'none';
+
+
         // Argon Dashboard-specific configuration
         var chartData1 = {
             labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
@@ -350,13 +415,36 @@
 
         var chartData3 = {
             labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-            datasets: [{
-                label: 'Solde',
-                data: @json($balance_per_month),
-                backgroundColor: 'rgba(94, 114, 228, 0.1)', // Argon primary color
-                borderColor: '#66abf1',
-                borderWidth: 2,
-            }]
+            datasets: [
+                {
+                    label: 'Solde',
+                    data: @json($balance_per_month),
+                    backgroundColor: 'rgba(94, 114, 228, 0.1)', // Argon primary color
+                    borderColor: '#66abf1',
+                    borderWidth: 2,
+                },
+                {
+                    label: 'Entrées',
+                    data: @json($entries_per_month),
+                    backgroundColor: 'rgba(94, 114, 228, 0.1)', // Argon primary color
+                    borderColor: '#28a745',
+                    borderWidth: 2,
+                },
+                {
+                    label: 'Dépenses',
+                    data: @json($outings_per_month),
+                    backgroundColor: 'rgba(94, 114, 228, 0.1)', // Argon primary color
+                    borderColor: '#dc3545',
+                    borderWidth: 2,
+                },
+                {
+                    label: 'Solde en temps réel',
+                    data: @json($live_balance_per_month),
+                    backgroundColor: 'rgba(94, 114, 228, 0.1)', // Argon primary color
+                    borderColor: '#ffff00',
+                    borderWidth: 2,
+                }
+            ]
         };
 
         var chartOptions = {
@@ -399,6 +487,9 @@
             chartData1.datasets[0].data = @json($entries_per_month); // New data
             chartData2.datasets[0].data = @json($outings_per_month);; // New data
             chartData3.datasets[0].data = @json($balance_per_month);; // New data
+            chartData3.datasets[1].data = @json($entries_per_month);; // New data
+            chartData3.datasets[2].data = @json($outings_per_month);; // New data
+            chartData3.datasets[3].data = @json($live_balance_per_month);; // New data
 
             // Optionally, update labels
             chartData1.labels = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
@@ -409,6 +500,8 @@
             myChart1.update();  // This is still valid for updating with Chart.js (and Argon Dashboard)
             myChart2.update();  // This is still valid for updating with Chart.js (and Argon Dashboard)
             myChart3.update();  // This is still valid for updating with Chart.js (and Argon Dashboard)
+            document.getElementById('balance-text').textContent = " de l'année";
+            document.getElementById('movement-text').textContent = " de l'année";
         });
 
         /*document.getElementById('updateMonth').addEventListener('click', function() {
@@ -433,6 +526,9 @@
             chartData1.datasets[0].data = @json($entries_per_day_of_week); // New data
             chartData2.datasets[0].data = @json($outings_per_day_of_week); // New data
             chartData3.datasets[0].data = @json($balance_per_day_of_week); // New data
+            chartData3.datasets[1].data = @json($entries_per_day_of_week); // New data
+            chartData3.datasets[2].data = @json($outings_per_day_of_week); // New data
+            chartData3.datasets[3].data = @json($live_balance_per_day_of_week); // New data
 
             // Optionally, update labels
             chartData1.labels = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
@@ -443,6 +539,9 @@
             myChart1.update();  // This is still valid for updating with Chart.js (and Argon Dashboard)
             myChart2.update();  // This is still valid for updating with Chart.js (and Argon Dashboard)
             myChart3.update();  // This is still valid for updating with Chart.js (and Argon Dashboard)
+
+            document.getElementById('balance-text').textContent = ' de la semaine';
+            document.getElementById('movement-text').textContent = ' de la semaine';
         });
 
     </script>

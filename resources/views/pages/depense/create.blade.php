@@ -49,7 +49,7 @@
         {{--    TOOLTIP--}}
         <div class="card card-frame mx-2 my--2 text-sm border-primary bg-primary-lighter">
             <div class="card-body text-primary">
-                <i class="ni ni-air-baloon"></i> Ajouteez vos dépenses en spécifiant le bénéficiaire, le montant et le motif
+                <i class="ni ni-air-baloon"></i> Ajoutez vos dépenses en spécifiant le bénéficiaire, le montant et le motif
             </div>
         </div>
         <!-- Card header -->

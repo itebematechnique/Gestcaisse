@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-lg-6 col-5 text-right">
                         @if (array_search("AD", $actions) != false || $actions["0"] == "AD")
-                            <a href="{{ route('depenses.create') }}" class="btn btn-sm btn-neutral">Nouvelle</a>
+                            <a href="{{ route('depenses.create') }}" class="btn btn-sm btn-primary">Nouvelle</a>
                         @endif
                         {{-- <a href="#" class="btn btn-sm btn-neutral">Filters</a> --}}
                     </div>
