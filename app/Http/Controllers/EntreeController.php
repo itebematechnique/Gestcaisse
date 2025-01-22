@@ -82,6 +82,9 @@ class EntreeController extends Controller
         // Simple update
         $entree->source = $request->source;
         $entree->beneficiaire = $request->beneficiaire;
+        $entree->motif = $request->input('motif');
+        $entree->mt_d = $request->input('mt_d');
+        $entree->mt_a = $request->input('mt_a');
         $entree->type_paye = $request->moyen;
         $entree->description = $request->description;
         $entree->remarque = $request->remarque;

@@ -142,7 +142,7 @@
                             </div>
                             <input class="form-control{{ $errors->has('mt_d') ? ' is-invalid' : '' }}"
                                 placeholder="{{ __('Montant demandé') }}" type="number" name="mt_d" value="{{ $entree->mt_d }}"
-                                required autofocus disabled>
+                                required autofocus>
                         </div>
                         @if ($errors->has('mt_d'))
                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -157,8 +157,8 @@
                                 <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
                             </div>
                             <input class="form-control{{ $errors->has('mt_a') ? ' is-invalid' : '' }}"
-                                placeholder="{{ __('Montant accordé') }}" type="number" name="mt_a" value="{{$entree->mt_a }}"
-                                required autofocus disabled>
+                                placeholder="{{ __('Montant accordé') }}" type="number" name="mt_a" value="{{ $entree->mt_a }}"
+                                required autofocus>
                         </div>
                         @if ($errors->has('mt_a'))
                             <span class="invalid-feedback" style="display: block;" role="alert">
