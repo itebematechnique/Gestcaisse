@@ -173,7 +173,7 @@ class BesoinController extends Controller
         $entree = new Entree();
         $entree->source = $request->source;
         $entree->beneficiaire = $request->beneficiaire;
-        $entree->motif = $request->motif;
+        $entree->motif = $besoin->designation;
         $entree->date = date('Y-m-d');
         $entree->mt_d = $besoin->montant;
         $entree->mt_a = $besoin->montant_accorde;
@@ -186,6 +186,6 @@ class BesoinController extends Controller
         $besoin->date_approv = date('Y-m-d');
         $besoin->save();
 
-        return Redirect::back()->withSuccess("Le besoin a été approuvé avec succès");
+        return Redirect::back()->withSuccess("La caisse a été approvisionnée avec succès");
     }
 }

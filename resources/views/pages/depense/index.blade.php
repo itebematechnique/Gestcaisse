@@ -99,11 +99,11 @@
                                     {{-- <a class="dropdown-item" href={{ route('depenses.edit', $depense) }}>Modifier</a>
                                     <a class="dropdown-item" href={{ route('depenses.edit', $depense) }}>Approuver</a> --}}
 
-                                    {{-- <form action={{ route('depenses.destroy', $depense) }} method="post" id="delete-depense">
+                                     <form action={{ route('depenses.destroy', $depense) }} method="post" id="delete-depense">
                                         @method('DELETE')
-                                        <button class="dropdown-item" type="submit">Supprimer</button>
+                                        <button class="dropdown-item" type="submit" onclick="return confirm('Voulez-vous vraiment supprimer cette dépense de <{{ $depense->mt }} FCFA> ?')">Supprimer</button>
                                         @csrf
-                                    </form> --}}
+                                    </form>
                                 </div>
                             </div>
                         </td>
